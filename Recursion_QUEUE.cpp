@@ -2,15 +2,6 @@
 
 const int QUENCE_INIT_SIZE = 100;
 const int QUENCEINCREMENT = 10;
-//typedef struct QNode{
-//    int data;
-//    struct QNode *next;
-//}Lnode, *LinkList;
-//typedef LinkList QuencePtr;
-//typedef struct {
-//    QuencePtr front;
-//    QuencePtr rear;
-//} LinkQueue;
 
 typedef struct {
     int *elem;
@@ -34,15 +25,6 @@ int QuenceLength_Sq(SqQueue Q)
 {
     return (Q.rear - Q.front + Q.queuesize) % Q.queuesize;
 }
-
-//void DestroyQuence_L(SqQueue &Q)
-//{
-//    while (Q.front){
-//        Q.rear = Q.front->next;
-//        delete Q.front;
-//        Q.front = Q.rear;
-//    }
-//}
 
 void enqueue_L(SqQueue &Q, int e)
 {
