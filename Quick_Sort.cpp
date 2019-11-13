@@ -46,33 +46,32 @@ void DestroyList(Sqlist &S)
 }
 
 int Partition(Sqlist &S, int low, int high)
-{
-    S.elem[0] = S.elem[low];
-    int pivotkey = S.elem[low];
-    while (low < high){
+{ // 对记录子序列R[low..high]进行一趟快速排序，并返回枢轴记录所在位置
+    S.elem[0] = S.elem[low]; // 将枢轴记录移至数组的闲置分量
+    int pivotkey = S.elem[low]; // 枢轴记录关键字
+    while (low < high){ // 从表的两端交替地向中间扫描
         while (low<high && S.elem[high] >= pivotkey){
             high--;
         }
         if (low<high){
-            S.elem[low++] = S.elem[high];
+            S.elem[low++] = S.elem[high]; // 将比枢轴记录小的记录移到低端
         }
         while (low<high && S.elem[low] <= pivotkey){
             low++;
         }
         if (low<high)
-            S.elem[high--] = S.elem[low];
+            S.elem[high--] = S.elem[low]; // 将比枢轴记录大的记录移到高端
     }
-    S.elem[low] = S.elem[0];
-
-    return low;
+    S.elem[low] = S.elem[0];  // 枢轴记录移到正确位置
+    return low; // 返回枢轴位置
 }
 
 void QSort(Sqlist &S, int s, int t)
 { //对记录序列[s,...,t]进行快速排序
-    if(s <t){
-        int pivotloc = Partition(S, s, t);
-        QSort(S, s, pivotloc-1);
-        QSort(S, pivotloc+1, t);
+    if(s <t){ // 长度大于1
+        int pivotloc = Partition(S, s, t); // 对 R[s..t] 进行一次划分，并返回枢轴位置
+        QSort(S, s, pivotloc-1); // 对低子序列递归排序
+        QSort(S, pivotloc+1, t); // 对高子序列递归排序
     }
 }
 
