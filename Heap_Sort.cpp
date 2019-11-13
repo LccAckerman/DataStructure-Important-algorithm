@@ -45,31 +45,33 @@ void DestroyList(Sqlist &S)
     S.length = 0;
 }
 
+// To heapify a subtree rooted with node i which is 
+// an index in arr[]. n is size of heap
 void heappass(Sqlist &S, int n, int i)
 {
-    int largest = i;
+    int largest = i; // Initialize largest as root
     int left = 2*i + 1;
     int right = 2*i +2;
-    if (left<n && S.elem[left] > S.elem[largest])
+    if (left<n && S.elem[left] > S.elem[largest]) // If left child is larger than root
         largest = left;
-    if (right<n && S.elem[right]>S.elem[largest])
+    if (right<n && S.elem[right]>S.elem[largest]) // If right child is larger than largest so far
         largest = right;
-    if (largest != i){
+    if (largest != i){ // If largest is not root
         int temp = S.elem[i];
         S.elem[i] = S.elem[largest];
         S.elem[largest] = temp;
-        heappass(S, n, largest);
+        heappass(S, n, largest); // Recursively heapify the affected sub-tree
     }
 }
 
 void HeapSort(Sqlist &S, int n)
 {
-    for (int i = n/2 - 1; i >= 0 ; --i) {
+    for (int i = n/2 - 1; i >= 0 ; --i) { // Build heap (rearrange array) 
         heappass(S, n, i);
     }
-    for (int i = n-1; i >= 0 ; --i) {
-        swap(S.elem[0], S.elem[i]);
-        heappass(S, i, 0);
+    for (int i = n-1; i >= 0 ; --i) { // One by one extract an element from heap
+        swap(S.elem[0], S.elem[i]); // Move current root to end
+        heappass(S, i, 0); // call max heapify on the reduced heap
     }
 }
 
