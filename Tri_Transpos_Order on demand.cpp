@@ -16,14 +16,14 @@ typedef struct {
     int TOTALu;
 }TsMatrix;
 
-bool TransPoseSMatrix(TsMatrix M, TsMatrix &T)
-{
+bool TransPoseSMatrix(TsMatrix M, TsMatrix &T) //压缩转置算法
+{ // 对矩阵的每一列，需要将三元组表M.data扫描一次
     T.ROWu = M.COLu;
     T.COLu = M.ROWu;
     T.TOTALu = M.TOTALu;
     if (T.TOTALu)
     {
-        int q = 1;
+        int q = 1; //新压缩矩阵下标，计数器
         for (int col = 0; col < M.COLu; ++col) {
             for ( int p = 1; p < M.TOTALu; ++p) {
                 if (M.data[p].j == col){
