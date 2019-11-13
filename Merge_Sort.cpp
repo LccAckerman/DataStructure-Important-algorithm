@@ -59,15 +59,15 @@ void Merge(Sqlist &S, Sqlist &T, int i, int m,int n)
 
 void Msort(Sqlist &S, Sqlist &T, int s, int t)
 { //sort [s...t]
-    Sqlist T2;
+    Sqlist T2; 
     int arr[t-s+1];
-    createlist(T2, arr, t-s+1);
+    createlist(T2, arr, t-s+1); //开设用于存放归并排序中间结果的辅助空间
     if (s==t) T=S;
     else{
-        int m = (s+t)/2;
-        Msort(S, T2, s, m);
-        Msort(S, T2, m+1, t);
-        Merge(T2, T, s, m, t);
+        int m = (s+t)/2; // 将SR[s..t]平分为SR[s..m]和SR[m+1..t]
+        Msort(S, T2, s, m); // 递归地将SR[s..m]归并为有序的TR2[s..m]
+        Msort(S, T2, m+1, t); // 递归地将SR[m+1..t]归并为有序的TR2[m+1..t]
+        Merge(T2, T, s, m, t); // 将TR2[s..m]和TR2[m+1..t]归并到TR1[s..t]
     }
 }
 
