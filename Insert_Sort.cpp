@@ -49,8 +49,8 @@ void DestroyList(Sqlist &S)
 void InsertPass(Sqlist &S)
 {
     for(int i=2;i<=S.length;i++){
-        if (S.elem[i] < S.elem[i-1]){
-            S.elem[0] = S.elem[i];
+        if (S.elem[i] < S.elem[i-1]){ 
+            S.elem[0] = S.elem[i]; // 复制为哨兵
             for (; S.elem[0] < S.elem[i-1]; --i) {
                 S.elem[i] = S.elem[i-1];
             }
