@@ -44,12 +44,12 @@ TsMatrix * Init(int flag, int mat[ROW][COL]){
 }
 
 void createRpos(TsMatrix M)
-{
+{ // 构造辅助向量，求M中每一列的第一个非零元在T.data中的起始序号
     for (int col = 0; col < M.COLu; ++col) {
         num[col] = 0;
     }
-    for (int t = 1; t <= M.TOTALu; ++t) {
-        ++num[M.data[t].j];
+    for (int t = 1; t <= M.TOTALu; ++t) { // M.TOTALu为非零元的总个数
+        ++num[M.data[t].j];  // 求M中每一列所含非零元的个数
     }
     rpos[0] = 1;
     for (int col = 1; col < M.COLu; ++col) {
@@ -57,20 +57,20 @@ void createRpos(TsMatrix M)
     }
 }
 
-bool FastTransposeSMatrix(TsMatrix M, TsMatrix &T){
+bool FastTransposeSMatrix(TsMatrix M, TsMatrix &T){ // 采用三元组顺序表存储表示，求稀疏矩阵M的转置矩阵T
     T.ROWu = M.COLu;
     T.COLu = M.ROWu;
     T.TOTALu = M.TOTALu;
     if (T.TOTALu)
     {
         createRpos(M);
-        for (int p = 1; p <= M.TOTALu; ++p) {
-            int col = M.data[p].j;
-            int q = rpos[col];
+        for (int p = 1; p <= M.TOTALu; ++p) {  //从M.data的第一个非零元到最后一个非零元，循环次数为非0元素总个数
+            int col = M.data[p].j;  // 取出当前元素的列号
+            int q = rpos[col]; //查辅助向量表得q，即当前元素在T.data中的位置下标
             T.data[q].i = M.data[p].j;
             T.data[q].j = M.data[p].i;
             T.data[q].e = M.data[p].e;
-            ++rpos[col];
+            ++rpos[col]; //重要语句！修改辅助向量，供M中同一列下一非零元素定位!
         }
     }
     return true;
