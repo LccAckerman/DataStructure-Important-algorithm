@@ -60,7 +60,7 @@ void BubbleSort(Sqlist &S)
                 lastExchangeIndex = j;
             }
         }
-        i = lastExchangeIndex;
+        i = lastExchangeIndex;  // 一趟排序中无序序列中最后一个记录的位置
     }
 }
 int main() {
