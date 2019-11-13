@@ -82,35 +82,35 @@ void incrementQuencesize(SqQueue &Q)
 void division( int n, int result[])
 {
     int pre = n; // 前一个出队列的元素序号
-    int group = 0;
+    int group = 0;  //表示当前分配的组的编号
     SqQueue Q;
-    InitQueue_L(Q, n);
-    for (int e = 0; e < n; ++e) {
+    InitQueue_L(Q, n); //初始化一个队列，长度与被划分集合的基本元素个数相同
+    for (int e = 0; e < n; ++e) { //该循环用来给分配的队列附上初值
         enqueue_L(Q, e);
     }
-    int cur_index;
-    int clash[RAW];
-    while (! isEmpty(Q)){
-        cur_index = DeQueue_L(Q);
-        if (cur_index <= pre){
+    int cur_index; //该变量用来表示当前待考察的队列中的一个元素
+    int clash[RAW]; //该数组用来表示当前分配组的已经添加的元素与其它元素的关系，即是否产生冲突
+    while (! isEmpty(Q)){ //该循环用来处理队列中的每一个元素，直到所有元素都分配完成时结束
+        cur_index = DeQueue_L(Q); //取出一个元素进行处理
+        if (cur_index <= pre){ //如果当前元素小于前一个，则表示队列已经循环遍历所有的元素，应该新建另一个组
             ++group;
             for (int i = 0; i < n; ++i) {
                 clash[i] = 0;
             }
         }
-        if (clash[cur_index] == 0){
-            result[cur_index] = group;
-            for (int i = 0; i < n; ++i) {
+        if (clash[cur_index] == 0){ //查询当前分配组的clash数组的值，当值为0时表示该元素没有与当前组中已经添加的元素产生冲突
+            result[cur_index] = group; //将当前元素编入该组
+            for (int i = 0; i < n; ++i) { //添加与被添加元素冲突的信息
                 clash[i] += R[cur_index][i];
             }
-        } else{
+        } else{ //如果该元素与当前组中的所有元素都冲突，将该元素继续入栈
         enqueue_L(Q, cur_index);}
         pre = cur_index;
     }
 }
 
 int main() {
-    int res[RAW];
+    int res[RAW]; //该数组用来存放分组后的结果
     division(RAW, res);
     for (int re : res) {
         cout<<re<<endl;
