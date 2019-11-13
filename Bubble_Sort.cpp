@@ -15,7 +15,7 @@ void createlist(Sqlist &S, int arr[], int n)
     S.length = n;
 }
 
-void insert(Sqlist &S, int pos, int e) // 在顺序线性表 L 的第 i 个元素之前插入新的元素 e
+void insert(Sqlist &S, int pos, int e) // 在顺序线性表 L 的第 i 个元素之前插入新的元素e
 {
     if (pos<0 || pos>S.length)
         return;
