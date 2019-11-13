@@ -48,12 +48,12 @@ void DestroyList(Sqlist &S)
 void SelectPass(Sqlist &S)
 {
     for (int i = 0; i < S.length; ++i) {
-        int j = i;
+        int j = i;  // j 指示关键字最小记录的位置，初值设为i
         for (int k = i+1; k < S.length; ++k) {
-            if (S.elem[k] < S.elem[j]) j=k;
+            if (S.elem[k] < S.elem[j]) j=k; // 暂不进行记录交换，只记录位置
         }
-        if (i != j)
-        {
+        if (i != j) 
+        { // 最后互换记录R[j] 和R[i]
             int temp = S.elem[i];
             S.elem[i] = S.elem[j];
             S.elem[j] = temp;
